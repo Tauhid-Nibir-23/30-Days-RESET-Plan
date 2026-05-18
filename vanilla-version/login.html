@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - 30-Day Discipline Tracker</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/login.css">
+    <!-- Firebase SDK (compat for global firebase namespace) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-card animate-scale-in">
+                <div class="login-header">
+                    <div class="login-flame">🔥</div>
+                    <h2>Welcome</h2>
+                    <p>Start your 30-day discipline challenge</p>
+                </div>
+
+                <!-- Email/Password Form -->
+                <div id="emailTab" class="auth-form-container active">
+                    <form id="emailLoginForm" class="login-form" onsubmit="handleEmailLogin(event)">
+                        <div class="form-group">
+                            <label for="emailInput">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="emailInput" 
+                                placeholder="you@example.com"
+                                required
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passwordInput">Password</label>
+                            <input 
+                                type="password" 
+                                id="passwordInput" 
+                                placeholder="Enter password"
+                                required
+                                minlength="6"
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            Login
+                        </button>
+                    </form>
+
+                    <p class="auth-toggle"><a href="#" onclick="toggleSignup(event)">Signup</a></p>
+
+                    <!-- Signup Form (Hidden by default) -->
+                    <form id="emailSignupForm" class="login-form hidden" onsubmit="handleEmailSignup(event)">
+                        <div class="form-group">
+                            <label for="signupNameInput">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="signupNameInput" 
+                                placeholder="Your full name"
+                                minlength="2"
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupEmailInput">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="signupEmailInput" 
+                                placeholder="you@example.com"
+                                required
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupPasswordInput">Password</label>
+                            <input 
+                                type="password" 
+                                id="signupPasswordInput" 
+                                placeholder="Minimum 6 characters"
+                                required
+                                minlength="6"
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <p class="auth-toggle hidden" id="backToLoginText">Already have an account? <a href="#" onclick="toggleSignup(event)">Login</a></p>
+                </div>
+
+                <p class="login-footer">Your progress is securely saved in the cloud</p>
+            </div>
+            <div class="bg-glow"></div>
+        </div>
+    </section>
+
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Debug Firebase initialization
+        console.log('🔥 Page loaded - Firebase SDK status:', typeof firebase);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ DOM loaded - Firebase SDK status:', typeof firebase);
+            if (auth) {
+                console.log('✅ Firebase Auth initialized successfully');
+            } else {
+                console.log('❌ Firebase Auth NOT initialized - calling initializeFirebase()');
+                if (typeof initializeFirebase === 'function') {
+                    initializeFirebase();
+                }
+            }
+        });
+
+        // Wait a bit and check again
+        setTimeout(() => {
+            console.log('📊 Status check - auth object:', auth ? '✅ Ready' : '❌ Not ready');
+            console.log('📊 Status check - db object:', db ? '✅ Ready' : '❌ Not ready');
+        }, 2000);
+    </script>

@@ -1,0 +1,123 @@
+/* ============================================
+   LANDING PAGE STYLES
+   ============================================ */
+
+.landing-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.landing-container {
+    max-width: 900px;
+    width: 100%;
+    z-index: 1;
+}
+
+.landing-content {
+    text-align: center;
+}
+
+.landing-flame {
+    font-size: 100px;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+.landing-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.landing-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.quote-container {
+    margin-bottom: 40px;
+}
+
+.landing-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.landing-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .landing-flame {
+        font-size: 80px;
+    }
+
+    .landing-title {
+        font-size: 2rem;
+    }
+
+    .landing-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .landing-stats {
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .landing-flame {
+        font-size: 60px;
+    }
+}

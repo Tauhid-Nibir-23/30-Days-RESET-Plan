@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - 30-Day Discipline Tracker</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/user-info.css">
+    <!-- Firebase SDK (compat for global firebase namespace) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="user-info-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Profile Setup</h1>
+                <p>Complete your profile to get started</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <div class="profile-card animate-scale-in">
+                <div class="profile-section">
+                    <div class="profile-avatar">
+                        <img id="avatarImage" src="https://ui-avatars.com/api/?name=User&size=120&background=3b82f6&color=fff" alt="Avatar">
+                    </div>
+                </div>
+
+                <!-- User Info Display -->
+                <div id="infoDisplay" class="info-display">
+                    <div class="info-group">
+                        <h3>Account Information</h3>
+                        <div class="info-item">
+                            <span class="label">Full Name:</span>
+                            <span id="displayName" class="value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Email:</span>
+                            <span id="displayEmail" class="value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Member Since:</span>
+                            <span id="displayJoinDate" class="value">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <h3>Challenge Progress</h3>
+                        <div class="info-item">
+                            <span class="label">Current Day:</span>
+                            <span id="displayCurrentDay" class="value">1</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text"><span id="progressPercent">0</span>% Complete</p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" onclick="enterEditMode()">Edit Profile</button>
+                        <button class="btn btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+                    </div>
+                </div>
+
+                <!-- User Info Edit Form -->
+                <div id="infoEdit" class="info-edit hidden">
+                    <form id="editProfileForm" onsubmit="saveProfile(event)">
+                        <div class="form-group">
+                            <label for="editName">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="editName"
+                                placeholder="Your full name"
+                                minlength="2"
+                                required
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editPhone">Phone Number (Optional)</label>
+                            <input 
+                                type="tel" 
+                                id="editPhone"
+                                placeholder="Your phone number"
+                            >
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editBio">Bio</label>
+                            <textarea 
+                                id="editBio"
+                                placeholder="Tell us about your discipline goals"
+                                rows="4"
+                                maxlength="500"
+                            ></textarea>
+                            <div class="char-count">
+                                <span id="charCount">0</span>/500
+                            </div>
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editTheme">Theme Preference</label>
+                            <select id="editTheme">
+                                <option value="dark">Dark Mode</option>
+                                <option value="light">Light Mode</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" onclick="exitEditMode()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Additional Options -->
+                <div class="profile-options">
+                    <button class="option-btn" onclick="changePassword()">
+                        <span class="icon">🔐</span>
+                        <span>Change Password</span>
+                    </button>
+                    <button class="option-btn" onclick="handleLogout()">
+                        <span class="icon">🚪</span>
+                        <span>Logout</span>
+                    </button>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" class="loading-spinner hidden">
+                    <div class="spinner"></div>
+                    <p>Updating profile...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="toast hidden">
+        <span id="toastMessage">Profile updated successfully!</span>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/user-info.js"></script>
+</body>
+</html>
